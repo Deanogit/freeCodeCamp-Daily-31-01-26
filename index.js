@@ -1,9 +1,10 @@
 function getSign(dateStr) {
+  console.log(dateStr);
   // turn into date & month
   const split = dateStr.split('-');
   console.log(split);
-  const month = split[1];
-  const day = split[2];
+  const month = parseInt(split[1]);
+  const day = parseInt(split[2]);
   console.log(month);
   console.log(day);
 
@@ -31,8 +32,16 @@ function getSign(dateStr) {
     },
     { dayFrom: 22, monthFrom: 12, dayTo: 19, monthTo: 1, zodiac: 'Capricorn' },
     { dayFrom: 20, monthFrom: 1, dayTo: 18, monthTo: 2, zodiac: 'Aquarius' },
-    { dayFrom: 19, monthFrom: 2, dayTo: 20, monthTo: 3, zodiac: 'Aquarius' },
+    { dayFrom: 19, monthFrom: 2, dayTo: 20, monthTo: 3, zodiac: 'Pisces' },
   ];
 
-  console.log(range[0].dayFrom);
+  const match = range.find((zodiac) => {
+    const start = month === zodiac.monthFrom && day >= zodiac.dayFrom;
+    const end = month === zodiac.monthTo && day <= zodiac.dayTo;
+    return start || end;
+  });
+  console.log(match);
+  return match ? match.zodiac : 'Unknown';
 }
+
+getSign('2023-03-19'); // "Pisces"
